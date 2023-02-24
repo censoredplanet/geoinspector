@@ -1,4 +1,6 @@
 # GeoInspector 
+[![Tests](https://github.com/censoredplanet/geoinspector/workflows/geoinspector/badge.svg)](https://github.com/censoredplanet/geoinspector/actions)
+
 
 *Are you using `GeoInspector`? If so, let us know! Shoot us an email at censoredplanet@umich.edu.*
 
