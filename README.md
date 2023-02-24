@@ -34,7 +34,7 @@ The following flags can be provided for running measurements:
 ## Usage
 Run `GeoInspector` with a command like:
 ```
-./geoinspector --input-url-file input_url_file.csv --asn-mmdb asn.mmdb --input-resolver-file input_resolver_file.csv --module full
+sudo ./geoinspector --input-url-file examples/test.csv --asn-mmdb GeoLite2-ASN.mmdb --output-dns-file examples/dns_output.json --output-parsed-dns examples/dns_parsed_output.csv --output-conn-file examples/tcp_output.json --output-failed-conn-file examples/tcp_failed.json  --num-workers 1 --num-query-workers 1 --input-resolver-file examples/dns-resolvers.csv
 ```
 
 ## Disclaimer
