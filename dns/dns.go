@@ -17,6 +17,7 @@ type ResponseResult struct {
 	Response []ResponseEntry `json:"response"`
 	Err      string          `json:"error"`
 	Rcode    int             `json:"rcode"`
+	RawMsg   interface{}     `json:"rawmsg"`
 }
 
 type ResponseEntry struct {
@@ -104,6 +105,7 @@ func ParseDNS(resp *dns.Msg, err error, domain string) *ResponseResult {
 		Response: []ResponseEntry{},
 		Err:      "null",
 		Rcode:    -1,
+		RawMsg:   resp,
 	}
 
 	// If there's an error, just return the error
@@ -112,12 +114,12 @@ func ParseDNS(resp *dns.Msg, err error, domain string) *ResponseResult {
 		return parsed
 	}
 
-	// If answer field of DNS response is nil:
-	// rcode should not be 0
-	if resp.Answer != nil {
-		parsed.Rcode = resp.Rcode
-	} else {
-		parsed.Err = "Server empty answer"
+	// Save rcode for all responses
+	parsed.Rcode = resp.Rcode
+
+	// If answer is nil, process rcode and save as error
+	if resp.Answer == nil {
+		parsed.Err = dns.RcodeToString[resp.MsgHdr.Rcode]
 		return parsed
 	}
 
