@@ -17,6 +17,7 @@ var NumQueryWorkers int
 var NumRedirects int
 var Srcip string
 var IgnoreLocalResolvers bool
+var MeasurementSeparation int
 
 var WhoamiEndpoints = [...]string{
 	"o-o.myaddr.l.google.com",
@@ -37,7 +38,8 @@ func init() {
 	flag.StringVar(&OutputConnFile, "output-conn-file", "-", "Output File for writing TCP, TLS and HTTP connection responses (default - stdout)")
 	flag.StringVar(&OutputFailedConnFile, "output-failed-conn-file", "failed_conn.csv", "Output File for writing domain,ip pairs with failed tcp/tls connections, used to run traceroutes (default - failed_conn.csv)")
 	flag.StringVar(&Module, "module", "full", "Module to run (can be dns, tcp or full (DNS + TCP) (default - full)")
-	flag.IntVar(&NumWorkers, "num-workers", 100, "Number of vantage points to perform measurements to at any moment (default - 100)")
+	flag.IntVar(&NumWorkers, "num-workers", 100, "Number of parallel workers to perform measurements at any moment (default - 100)")
+	flag.IntVar(&MeasurementSeparation, "measurement-separation", 1, "Time (in seconds) to wait between consecutive probes by the same worker (default - 1)")
 	flag.IntVar(&NumQueryWorkers, "num-query-workers", 3, "Number of qeuries to perform to each resolver at any moment (default - 3)")
 	flag.IntVar(&NumRedirects, "num-redirects", 10, "Number of redirects to follow for an HTTP request (default 10)")
 	flag.StringVar(&Srcip, "src-ip", "", "Source IP address to use (will use default if unspecified)")
