@@ -275,7 +275,7 @@ func RequestWorker(jobs <-chan InputServer, results chan<- *Response, numRedirec
 			}
 			retryErrors = append(retryErrors, respSNI.Error)
 			respSNI.RetryErrors = retryErrors
-			time.Sleep(1 * time.Second)
+			time.Sleep(time.Duration(config.MeasurementSeparation) * time.Second)
 		}
 		response.Responses = append(response.Responses, *respSNI)
 

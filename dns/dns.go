@@ -167,7 +167,7 @@ func QueryWorker(client *dns.Client, resolver InputDNSResolver, domains <-chan s
 					if parsed.Err == "null" {
 						break
 					}
-					time.Sleep(1 * time.Second)
+					time.Sleep(time.Duration(config.MeasurementSeparation) * time.Second)
 				}
 			} else {
 				reply.Error = "Iterative error"
