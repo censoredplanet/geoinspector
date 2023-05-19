@@ -153,7 +153,13 @@ func QueryWorker(client *dns.Client, resolver InputDNSResolver, domains <-chan s
 
 		//If recurive, perform trace, else perform normal query
 		if resolver.IP == "recursive" {
-			reply.TraceResults, reply.AuthoritativeNs = recursiveTrace(testDomain)
+			for i := 0; i < 3; i++ {
+				reply.TraceResults, reply.AuthoritativeNs = recursiveTrace(testDomain)
+				if reply.AuthoritativeNs != "" {
+					break
+				}
+				time.Sleep(time.Duration(config.MeasurementSeparation) * time.Second)
+			}
 			if reply.AuthoritativeNs != "" {
 				// Start trials for test domain
 				msg := new(dns.Msg)
